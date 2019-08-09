@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 import PIL
-from flask import Flask, request, jsonify, Response
+from flask import Flask, render_template
 
 PATH = 'model/model.torch'
 app = Flask(__name__)
@@ -41,7 +41,11 @@ def preproccesImage(image):
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     return transform(img)
 
-@app.route('/imports',methods=['POST'])
+@app.route('/')
+def hello():
+    return render_template('form.html')
+
+@app.route('/post',methods=['POST'])
 def post():
     # получать картинку
     imagefile = request.files.get('imagefile', '')
