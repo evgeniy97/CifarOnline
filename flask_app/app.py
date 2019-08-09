@@ -8,6 +8,8 @@ import io
 import numpy as np
 from flask import Flask, request, render_template, redirect
 
+from string import Template
+
 PATH = 'model/model.torch'
 app = Flask(__name__)
 
@@ -34,6 +36,17 @@ class NeuralNetwork(nn.Module):
         return x
 
 
+ANSWER = """
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Answer</title>
+    </head>
+    <body>
+        <div> {}
+    </body>
+</html>
+"""
 def loadModel(path):
     model = NeuralNetwork()
     model.load_state_dict(torch.load(path))
@@ -72,7 +85,8 @@ def post():
         answer = model(img)
         _, predicted = torch.max(answer.data, 1)
     print(predicted)
-    return render_template("ok.html")
+    return 
+    #return render_template(Template(ANSWER.format(CLASSES[predicted])))
 
 model = loadModel(PATH)
 
