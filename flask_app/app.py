@@ -39,7 +39,8 @@ def loadModel(path):
 
 def preproccesImage(image):
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
-    img = cv2.resize(image, dsize=(32, 32), interpolation=cv2.INTER_CUBIC)
+    img = cv2.resize(image, dsize=(32, 32))
+    #cv2.imwrite("img.png",img)
     return img
 
 @app.route('/', methods=["GET", "POST"])
@@ -59,7 +60,12 @@ def post():
     in_memory_file = io.BytesIO()
     imagefile.save(in_memory_file)
     data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
-    answer = model(preproccesImage(data))
+    color_image_flag = 1
+    img = cv2.imdecode(data, color_image_flag)
+    with torch.no_grad(): 
+        img = torch.from_numpy(preproccesImage(img)).unsqueeze_(0)
+        print(img.shape)
+        answer = model(img )
     _, predicted = torch.max(answer.data, 1)
     print(predicted)
     return render_template("ok.html")
