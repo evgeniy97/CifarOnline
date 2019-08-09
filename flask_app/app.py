@@ -3,6 +3,9 @@ import torch.nn.functional as F
 import torch.nn as nn
 import torchvision.transforms as transforms
 import PIL
+
+import io
+import numpy as np
 from flask import Flask, request, render_template, redirect
 
 PATH = 'model/model.torch'
@@ -35,7 +38,6 @@ def loadModel(path):
     return model
 
 def preproccesImage(image):
-    return image
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
     img = PIL.Image.fromarray(image).resize((32,32),PIL.Image.ANTIALIAS)
     transform = transforms.Compose(
@@ -57,7 +59,10 @@ def hello():
 @app.route('/post',methods=['POST'])
 def post():
     imagefile = request.files["image"]
-    answer = model(preproccesImage(imagefile))
+    in_memory_file = io.BytesIO()
+    imagefile.save(in_memory_file)
+    data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
+    answer = model(preproccesImage(photo))
     _, predicted = torch.max(answer.data, 1)
     print(predicted)
     return render_template("ok.html")
