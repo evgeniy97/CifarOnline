@@ -51,7 +51,8 @@ def hello():
 def post():
     # получать картинку
     #imagefile = request.files.get('imagefile', '')
-    imagefile = request.files.get("image")
+    print(request.files)
+    imagefile = request.files["image"]
     print(type(imagefile))
     print(imagefile)
     #answer = model(preproccesImage(imagefile))
