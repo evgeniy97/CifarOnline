@@ -7,7 +7,6 @@ app = Flask(__name__)
 def loadModel():
     pass
 
-
 def preproccesImage():
     pass
 
