@@ -6,7 +6,7 @@ import torchvision
 import torchvision.transforms as transforms
 
 
-N_STEPS = 10
+N_STEPS = 5
 
 CLASSES = ('plane', 'car', 'bird', 'cat',
            'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
