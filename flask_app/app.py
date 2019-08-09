@@ -40,10 +40,7 @@ def loadModel(path):
 def preproccesImage(image):
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
     img = cv2.resize(image, dsize=(32, 32), interpolation=cv2.INTER_CUBIC)
-    transform = transforms.Compose(
-    [transforms.ToTensor(),
-     transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-    return transform(img)
+    return img
 
 @app.route('/', methods=["GET", "POST"])
 def hello():
