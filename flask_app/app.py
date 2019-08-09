@@ -85,7 +85,7 @@ def post():
         answer = model(img)
         _, predicted = torch.max(answer.data, 1)
     print(predicted)
-    return 
+    return CLASSES[predicted]
     #return render_template(Template(ANSWER.format(CLASSES[predicted])))
 
 model = loadModel(PATH)
