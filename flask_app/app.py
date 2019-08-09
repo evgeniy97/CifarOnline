@@ -11,6 +11,9 @@ from flask import Flask, request, render_template, redirect
 PATH = 'model/model.torch'
 app = Flask(__name__)
 
+CLASSES = ('plane', 'car', 'bird', 'cat',
+           'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
+
 class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
@@ -64,9 +67,10 @@ def post():
     img = cv2.imdecode(data, color_image_flag)
     with torch.no_grad(): 
         img = torch.from_numpy(preproccesImage(img)).unsqueeze_(0)
+        img = img.permute(0,3,1,2).type('torch.FloatTensor')
         print(img.shape)
-        answer = model(img )
-    _, predicted = torch.max(answer.data, 1)
+        answer = model(img)
+        _, predicted = torch.max(answer.data, 1)
     print(predicted)
     return render_template("ok.html")
 
