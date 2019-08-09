@@ -20,6 +20,9 @@ def train():
 def test():
     pass
 
+def saveModel():
+    pass
+
 def main():
     pass
 
