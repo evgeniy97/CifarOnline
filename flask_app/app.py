@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 import PIL
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 
 PATH = 'model/model.torch'
 app = Flask(__name__)
