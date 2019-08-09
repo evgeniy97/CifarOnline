@@ -35,6 +35,7 @@ def loadModel(path):
 
 def preproccesImage(image):
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
+    print(image)
     img = PIL.Image.fromarray(image).resize((32,32),PIL.Image.ANTIALIAS)
     transform = transforms.Compose(
     [transforms.ToTensor(),
