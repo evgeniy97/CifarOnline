@@ -1,0 +1,5 @@
+python==3.6
+flask==0.12.2
+torch==0.4.0
+cv==4.1.0
+numpy==1.14.6
