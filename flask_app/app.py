@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 import torchvision.transforms as transforms
-import PIL
+import cv2
 
 import io
 import numpy as np
@@ -39,7 +39,7 @@ def loadModel(path):
 
 def preproccesImage(image):
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
-    img = PIL.Image.fromarray(image).resize((32,32),PIL.Image.ANTIALIAS)
+    img = cv2.resize(image, dsize=(32, 32), interpolation=cv2.INTER_CUBIC)
     transform = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -62,7 +62,7 @@ def post():
     in_memory_file = io.BytesIO()
     imagefile.save(in_memory_file)
     data = np.fromstring(in_memory_file.getvalue(), dtype=np.uint8)
-    answer = model(preproccesImage(photo))
+    answer = model(preproccesImage(data))
     _, predicted = torch.max(answer.data, 1)
     print(predicted)
     return render_template("ok.html")
