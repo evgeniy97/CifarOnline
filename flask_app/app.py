@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torchvision.transforms as transforms
 import PIL
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 
 PATH = 'model/model.torch'
 app = Flask(__name__)
@@ -43,8 +43,15 @@ def preproccesImage(image):
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
     return transform(img)
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def hello():
+
+    if request.method == "POST":
+        if request.files:
+            image = request.files["image"]
+            print('Here:', image)
+            return redirect(request.url)
+
     return render_template('form.html')
 
 @app.route('/post',methods=['POST'])
