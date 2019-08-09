@@ -36,7 +36,8 @@ def loadModel(path):
 def preproccesImage(image):
     # Привести картинку к формату 32 на 32, затем привести к формату тензора
     print(image)
-    img = PIL.Image.fromarray(image).resize((32,32),PIL.Image.ANTIALIAS)
+    print(type(image))
+    img = PIL.Image.frombytes(image).resize((32,32),PIL.Image.ANTIALIAS)
     transform = transforms.Compose(
     [transforms.ToTensor(),
      transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
@@ -50,10 +51,14 @@ def hello():
 def post():
     # получать картинку
     imagefile = request.files.get('imagefile', '')
-    answer = model(preproccesImage(imagefile))
-    _, predicted = torch.max(answer.data, 1)
-    print(predicted)
-    return predicted
+    #imagefile = request.files["imagefile"]
+    print(type(imagefile))
+    print(imagefile)
+    #answer = model(preproccesImage(imagefile))
+    #_, predicted = torch.max(answer.data, 1)
+    #print(predicted)
+    #preticted = 12
+    return render_template("ok.html")
 
 model = loadModel(PATH)
 
