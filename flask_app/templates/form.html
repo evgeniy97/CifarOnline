@@ -4,9 +4,10 @@
         <title>Post image</title>
     </head>
     <body>
-            <form name="test" method="post" action="post">
+            <form name="test" method="POST" action="post" enctype = 'multipart/form-data'>
                     <p><b>Image:</b><br>
-                     <input type="file" name="imagefile" id="imagefile">
+                        <input type="file" class="custom-file-input" name="image" id="image">
+                        <label class="custom-file-label" for="image">Select image...</label>
                     </p>
                     <p><input type="submit" value="Отправить">
             </form>

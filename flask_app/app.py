@@ -50,8 +50,8 @@ def hello():
 @app.route('/post',methods=['POST'])
 def post():
     # получать картинку
-    imagefile = request.files.get('imagefile', '')
-    #imagefile = request.files["imagefile"]
+    #imagefile = request.files.get('imagefile', '')
+    imagefile = request.files.get("image")
     print(type(imagefile))
     print(imagefile)
     #answer = model(preproccesImage(imagefile))
