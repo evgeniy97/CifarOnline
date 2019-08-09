@@ -58,10 +58,8 @@ def hello():
 def post():
     # получать картинку
     #imagefile = request.files.get('imagefile', '')
-    print(request.files)
     imagefile = request.files["image"]
-    print(type(imagefile))
-    print(imagefile)
+
     #answer = model(preproccesImage(imagefile))
     #_, predicted = torch.max(answer.data, 1)
     #print(predicted)
