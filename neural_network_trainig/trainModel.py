@@ -13,6 +13,8 @@ CLASSES = ('plane', 'car', 'bird', 'cat',
 
 PATH = 'model.torch'
 
+
+
 class NeuralNetwork(nn.Module):
     def __init__(self):
         super(NeuralNetwork, self).__init__()
